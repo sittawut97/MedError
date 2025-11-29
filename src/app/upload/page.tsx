@@ -409,11 +409,11 @@ export default function UploadPage() {
         mappedRow['PhysicianNo'] = row['PhysicianNo'] || ''
         mappedRow['SubCategories_1'] = row['SubCategories_1'] || ''
         
-        // SubCategoriesText_1 maps to FailureCause_1
-        mappedRow['SubCategoriesText_1'] = row['FailureCause_1'] || ''
+        // SubCategoriesText_1 is empty (according to Story 4.1)
+        mappedRow['SubCategoriesText_1'] = ''
         
-        // Empty fields for additional categories
-        mappedRow['FailureCause_1'] = ''
+        // FailureCause_1 maps to FailureCause_1 (according to Story 4.1)
+        mappedRow['FailureCause_1'] = row['FailureCause_1'] || ''
         mappedRow['FailureCauseText_1'] = ''
         mappedRow['SubCategories_2'] = ''
         mappedRow['SubCategoriesText_2'] = ''

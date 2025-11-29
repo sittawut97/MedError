@@ -177,3 +177,15 @@ IsHighAlert2	IsHighAlert2
 PharmaRevisedBy	{manager} ข้อมูลที่ได้จากการเลือกหน่วยงานก่อน upload
 PharmaRevisedBy1	PharmaReviseBy
 PharmaRevisedRemark	PharmaReviseRemark
+
+Story 4.1
+[Upload Page]
+แก้ไข Story 4 จากข้อมูลเดิมที่
+
+SubCategoriesText_1	FailureCause_1
+FailureCause_1
+
+ให้เปลี่ยนมาเป็น
+
+SubCategoriesText_1
+FailureCause_1 FailureCause_1
