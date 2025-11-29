@@ -1,0 +1,23 @@
+ระบบมี pages ทั้งหมด 3 หน้า
+
+login Page (username, password)
+> mockup user:admin, password:admin
+
+์Navbar [ชิดซ้าย:dashboard,upload ชิดขวาlogout]
+    Main Page
+    Dashoard (top)
+    -show current month (select previous month, year)
+        > 4 department [500_1_pitchaya.t, 500_2_pitchaya.t, 501_panjaree.s, 502_petcharat.to] จำนวนที่ row ที่ upload 0-> red, มากกว่า 0 > green
+    data (content)
+    - search text, department, batchId
+    - table header [OccDate,OccTime,LocationTxt,OccDesc,IPSG,DrugSeverity,HN,PatientName,VisitDate,Physician,PhysicianNo,SubCategories_1,SubCategoriesText_1,FailureCause_1,FailureCauseText_1,DrugErrorLocation,DrugCode1,DrugDesc1,IsHighAlert1,DrugCode2,DrugDesc2,IsHighAlert2,PharmaRevisedBy1,PharmaRevisedRemark]
+
+    Upload Page
+    Button <Upload Med Error>
+    > Open modal
+        > drowdown list > select department
+            [500_1_pitchaya.t, 500_2_pitchaya.t, 501_panjaree.s, 502_petcharat.to]
+        > Brows > excel file
+        > Button > Cancel, Ok
+    > Show Table alfter model closed
+        > Header [OccDate,OccTime,LocationTxt,OccDesc,IPSG,DrugSeverity,HN,PatientName,VisitDate,Physician,PhysicianNo,SubCategories_1,SubCategoriesText_1,FailureCause_1,FailureCauseText_1,DrugErrorLocation,DrugCode1,DrugDesc1,IsHighAlert1,DrugCode2,DrugDesc2,IsHighAlert2,PharmaRevisedBy1,PharmaRevisedRemark]

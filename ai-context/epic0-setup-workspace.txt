@@ -1,0 +1,14 @@
+Project Name : Med Error
+มีการทำงานแบบ f/e, b/e
+
+Package Manager : pnpm
+nextjs: 14.x
+react: 18.x
+typescript: 5.x
+tailwind / shadCN
+
+Lib ที่ต้องใช้งาน เตรียมไว้ให้คราวๆ
+read-excel-file: "^5.8.7"
+jsonwebtoken
+ldapts
+mssql

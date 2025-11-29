@@ -1,0 +1,179 @@
+Story1
+[Upload Page]
+- อ่าน excel file  โดยอ่านเฉพาะ Sheet แรกสุด และ row ที่ 1 ให้เป็น Header row ถัดๆ ไป ให้เป็น data
+หลังจากดปุ่ม Ok แล้วเอามาแสดงผลเป็น Table ด้านล่าง
+
+Story2
+[Upload Page]
+- varidate header ที่อ่านจาก excel row ที่ 1 ต้องมีตรงตามนี้ ถ้าชื่อไหนไม่มี ให้แจ้งเตือนว่าชื่อไหนไม่มี 
+OccDate
+OccTime
+LocationTxt
+OccDesc
+IPSG
+DrugSeverity
+HN
+PatientName
+VisitDate
+Physician
+PhysicianNo
+SubCategories_1
+FailureCause_1
+DrugErrorLocation
+DrugCode1
+DrugDesc1
+IsHighAlert1
+DrugCode2
+DrugDesc2
+IsHighAlert2
+PharmaRevisedBy
+PharmaReviseRemark
+
+ถ้ามีข้อมูลครบตาม header ให้ดึงแค่เฉพาะ header ในนี้มาแสดงใน table
+
+Story3
+[Upload Page]
+ตรวจสอบข้อมูล ถ้าไม่ตรงกับเงื่อนไข ให้แสดง background เป็นสี warning
+- OccDate ข้อมูลต้องอยู่ในรูปแบบ String ที่มี format  YYYY-MM-DD
+- OccTime ข้อมูลต้องอยู่ในรูปแบบ String ที่มี format  HH:MM
+- VisitDate ข้อมูลต้องอยู่ในรูปแบบ String ที่มี format  YYYY-MM-DD
+- DrugErrorLocation ต้องมีค่า IPD หรือ OPD ห้ามเป็นค่าว่าง
+
+Story3.1
+[Upload Page]
+- ตรวจสอบข้อมูล ถ้าไม่ตรงกับเงื่อนไข ให้แสดง background เป็นสี warning
+ -SubCategories_1 และ FailureCause_1  จะมี format เป็น ตัวเลขอยู่ข้างหน้า:
+ number:   เช่น 124:
+
+Story3.2
+[Upload Page]
+- ถ้าใน row มีข้อมูลไม่ถูกต้อง ให้ header นั้นมี background เป็นสี error
+
+Story3.3
+[Upload Page]
+- ข้อมูลที่ไม่ถูกต้อง (backgroud : warning) ให้สามารถคลิก แล้วเปิด module ขึ้นมาแก้ไขได้
+โดยแสดงค่าเก่าที่ผิด  และมี textbox ให้เพิ่มแก้ไขค่าใหม่ให้ถูกต้อง จากนั้นกดบันทึกแล้ว backgroud เปลี่ยนสีเป็นปกติ
+
+Story3.4
+[Upload Page]
+เพิ่ม master สำหรับใช้ในการแก้ไขข้อมูล (ตาม Story3.3) ให้เลือก edit จาก dropdown แทนการพิมพ์แก้ไข
+- department (ที่ใช้ใน dropdown ตอนเลือกข้อมูลก่อน upload, ไม่ได้ใช้ที่หน้า edit)
+  { id: '500_PreDispensing_pitchaya.t', name: '500_PreDispensing_pitchaya.t', manager: 'pitchaya.t', department: 'เภสัชกรรมผู้ป่วยนอก', deptid: '500' },
+  { id: '500_intervention_pitchaya.t', name: '500_intervention_pitchaya.t', manager: 'pitchaya.t', department: 'เภสัชกรรมผู้ป่วยใน', deptid: '500' },
+  { id: '501_panjaree.s', name: '501_panjaree.s', manager: 'panjaree.s', department: 'เภสัชกรรมผู้ป่วยนอก', deptid: '501' },
+  { id: '502_petcharat.to', name: '502_petcharat.to', manager: 'petcharat.to', department: 'เภสัชกรรมคลินิก', deptid: '502' }
+- IPSG
+0
+1
+2
+3
+4
+5
+- DrugSeverity
+A
+B
+C
+D
+E
+F
+G
+H
+- SubCategories_1
+124:การสั่ง (Prescribing Error)
+125:การรับคำสั่ง/คัดลอกคำสั่ง (Transcribing Error)
+126:การจัดและตรวจสอบยาก่อนจ่าย (Pre-dispensing Error)
+127:การจ่าย (Dispensing Error)
+284:การส่ง (Transportation Error)
+129:การให้ (Administration Error)
+128:การจัดยาก่อนให้ (Pre-administration Error)
+132:การคืนยา (Drug_return)
+285:สินค้าคงคลัง (Inventory)
+130:อาการไม่พึงประสงค์ (Report_ADR)
+131:การจองเลือดและส่วนประกอบ
+133:อื่นๆระบุ...
+- FailureCause_1
+239:contraindication
+240:damaged package
+241:drug allergy and sensitivity
+242:drug interaction
+243:expired/damage
+244:extra-dose error
+245:Incomplete order
+246:omission error
+247:therapeutic duplication
+248:wrong calculation
+249:wrong criteria
+250:wrong dosage form
+251:wrong dose/strength
+252:wrong drug
+253:wrong frequency
+264:wrong HAD identification
+254:wrong label
+255:wrong patient
+256:wrong quantity
+257:wrong rate of administration
+258:wrong route
+259:wrong technique 
+260:wrong-time error
+262:ลงบันทึกหลังการให้ยาเกิดความคลาดเคลื่อน
+263:ให้ยาคลาดเคลื่อนที่เกิดจากการเตรียมยาที่ไม่เหมาะสมหรือไม่ถูกต้อง 
+265:อื่นๆ
+- DrugErrorLocation 
+OPD
+IPD
+OTH
+
+Story 3.5
+[Upload Page]
+เพิ่มการ validate header ใน Story2
+เพิ่ม ignore case sensitive  และมีการ ตัด space ระหว่างคำ ของ header
+เช่น  Visit date > Visitdate, Physician No > PhysicianNo
+
+Story 4
+[Upload Page]
+- เพิ่มปุ่ม Download Excel  หลังจากที่ Story3.3 ไม่มีข้อมูลที่ warning
+โดยทำการ Mapping field ตั้งต้นจาก Header ใหม่ใน Excel
+กับ ข้อมูลตาม Header ที่ถูก upload เข้ามาและ validate เรียบร้อย
+
+Department	{deptid:department} ข้อมูลที่ได้จากการเลือกหน่วยงานก่อน upload
+OccDate	OccDate
+OccTime	OccTime
+LocationTxt	LocationTxt
+OccDesc	OccDesc
+IPSG	IPSG
+DrugSeverity	DrugSeverity
+HN	HN
+PatientName	PatientName
+VisitDate	VisitDate
+Physician	Physician
+PhysicianNo	PhysicianNo
+SubCategories_1	SubCategories_1
+SubCategoriesText_1	FailureCause_1
+FailureCause_1	
+FailureCauseText_1	
+SubCategories_2	
+SubCategoriesText_2	
+FailureCause_2	
+FailureCauseText_2	
+SubCategories_3	
+SubCategoriesText_3	
+FailureCause_3	
+FailureCauseText_3	
+SubCategories_4	
+SubCategoriesText_4	
+FailureCause_4	
+FailureCauseText_4	
+SubCategories_5	
+SubCategoriesText_5	
+FailureCause_5	
+FailureCauseText_5	
+DrugErrorLocation	DrugErrorLocation
+DrugCode1	DrugCode1
+DrugDesc1	DrugDesc1
+IsHighAlert1	IsHighAlert1
+DrugCode2	DrugCode2
+DrugDesc2	DrugDesc2
+IsHighAlert2	IsHighAlert2
+PharmaRevisedBy	{manager} ข้อมูลที่ได้จากการเลือกหน่วยงานก่อน upload
+PharmaRevisedBy1	PharmaReviseBy
+PharmaRevisedRemark	PharmaReviseRemark
