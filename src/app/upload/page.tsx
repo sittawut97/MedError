@@ -182,7 +182,7 @@ export default function UploadPage() {
   const [selectedDepartment, setSelectedDepartment] = useState<string | undefined>(undefined)
   const [selectedDepartmentInfo, setSelectedDepartmentInfo] = useState<{manager: string, department: string, deptid: string} | null>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [uploadedData, setUploadedData] = useState<any[]>([])
+  const [uploadedData, setUploadedData] = useState<Record<string, unknown>[]>([])
   const [validationError, setValidationError] = useState<string>('')
   const [columnHasErrors, setColumnHasErrors] = useState<Set<string>>(new Set())
   const [editingCell, setEditingCell] = useState<{rowIndex: number, header: string, oldValue: string} | null>(null)
@@ -236,7 +236,7 @@ export default function UploadPage() {
         
         // Normalize headers from Excel
         const normalizedHeaders = headers.map(h => normalizeHeader(h))
-        const normalizedRequiredHeaders = requiredHeaders.map(h => normalizeHeader(h))
+        // normalizedRequiredHeaders removed - using inline normalization instead
         
         // Validate headers against required headers (case-insensitive, space-insensitive)
         const missingHeaders = requiredHeaders.filter(required => {
@@ -253,8 +253,8 @@ export default function UploadPage() {
         setValidationError('')
         
         // Convert remaining rows to objects, only include required headers
-        const data = rows.slice(1).map((row: any) => {
-          const obj: any = {}
+        const data = rows.slice(1).map((row) => {
+          const obj: Record<string, unknown> = {}
           requiredHeaders.forEach(header => {
             // Find header index using normalized comparison
             const normalizedRequired = normalizeHeader(header)
@@ -390,7 +390,7 @@ export default function UploadPage() {
 
       // Map data according to Story 4
       const mappedData = uploadedData.map(row => {
-        const mappedRow: any = {}
+        const mappedRow: Record<string, unknown> = {}
         
         // Department: {deptid:department}
         mappedRow['Department'] = `${selectedDepartmentInfo.deptid}:${selectedDepartmentInfo.department}`
@@ -673,7 +673,7 @@ export default function UploadPage() {
                     <table className="w-full border-collapse bg-white">
                       <thead className="sticky top-0 bg-gray-50 z-10">
                         <tr>
-                          {requiredHeaders.map((header, index) => {
+                          {requiredHeaders.map((header) => {
                             const hasError = columnHasErrors.has(header)
                             return (
                               <th 
