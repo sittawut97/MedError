@@ -91,8 +91,8 @@ const requiredHeaders = [
   'DrugCode2',
   'DrugDesc2',
   'IsHighAlert2',
-  'PharmaReviseBy',
-  'PharmaReviseRemark'
+  'PharmaRevisedBy',
+  'PharmaRevisedRemark'
 ]
 
 const formatCellValue = (value: unknown): string => {
@@ -444,9 +444,9 @@ export default function UploadPage() {
         mappedRow['PharmaRevisedBy'] = selectedDepartmentInfo.manager
         
         // PharmaRevisedBy1: original PharmaRevisedBy
-        mappedRow['PharmaRevisedBy1'] = row['PharmaReviseBy'] || ''
+        mappedRow['PharmaRevisedBy1'] = row['PharmaRevisedBy'] || ''
         
-        mappedRow['PharmaRevisedRemark'] = row['PharmaReviseRemark'] || ''
+        mappedRow['PharmaRevisedRemark'] = row['PharmaRevisedRemark'] || ''
         
         return mappedRow
       })
