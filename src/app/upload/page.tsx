@@ -12,10 +12,10 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Upload as UploadIcon, FileSpreadsheet, Download } from 'lucide-react'
 
 const departments = [
-  { id: '500_PreDispensing_pitchaya.t', name: '500_PreDispensing_pitchaya.t', manager: 'pitchaya.t', department: 'เภสัชกรรมผู้ป่วยนอก', deptid: '500' },
-  { id: '500_intervention_pitchaya.t', name: '500_intervention_pitchaya.t', manager: 'pitchaya.t', department: 'เภสัชกรรมผู้ป่วยใน', deptid: '500' },
-  { id: '501_panjaree.s', name: '501_panjaree.s', manager: 'panjaree.s', department: 'เภสัชกรรมผู้ป่วยนอก', deptid: '501' },
-  { id: '502_petcharat.to', name: '502_petcharat.to', manager: 'petcharat.to', department: 'เภสัชกรรมคลินิก', deptid: '502' }
+  { id: '500_PreDispensing_pitchaya.t', name: '500_PreDispensing_pitchaya.t', manager: 'pitchaya.t', department: 'บริหารปฏิบัติการเภสัชกรรม', deptid: '500_PreDispensing' },
+  { id: '500_intervention_pitchaya.t', name: '500_intervention_pitchaya.t', manager: 'pitchaya.t', department: 'เภสัชกรรมผู้ป่วยใน', deptid: '500_intervention' },
+  { id: '501_panjaree.s', name: '501_panjaree.s', manager: 'panjaree.s', department: 'เภสัชกรรมผู้ป่วยนอก', deptid: '501_Medication_error' },
+  { id: '502_petcharat.to', name: '502_petcharat.to', manager: 'petcharat.to', department: 'เภสัชกรรมคลินิก', deptid: '502_OccPhamacy' }
 ]
 
 // Master data for dropdowns
@@ -335,135 +335,222 @@ export default function UploadPage() {
     setEditValue('')
   }
 
-  const handleDownloadExcel = async () => {
+  // const handleDownloadExcel = async () => {
+  //   if (!selectedDepartmentInfo || uploadedData.length === 0) return
+
+  //   try {
+  //     // Import xlsx dynamically
+  //     const XLSX = await import('xlsx')
+
+  //     // Define download headers mapping according to Story 4
+  //     const downloadHeaders = [
+  //       'Department',
+  //       'OccDate',
+  //       'OccTime',
+  //       'LocationTxt',
+  //       'OccDesc',
+  //       'IPSG',
+  //       'DrugSeverity',
+  //       'HN',
+  //       'PatientName',
+  //       'VisitDate',
+  //       'Physician',
+  //       'PhysicianNo',
+  //       'SubCategories_1',
+  //       'SubCategoriesText_1',
+  //       'FailureCause_1',
+  //       'FailureCauseText_1',
+  //       'SubCategories_2',
+  //       'SubCategoriesText_2',
+  //       'FailureCause_2',
+  //       'FailureCauseText_2',
+  //       'SubCategories_3',
+  //       'SubCategoriesText_3',
+  //       'FailureCause_3',
+  //       'FailureCauseText_3',
+  //       'SubCategories_4',
+  //       'SubCategoriesText_4',
+  //       'FailureCause_4',
+  //       'FailureCauseText_4',
+  //       'SubCategories_5',
+  //       'SubCategoriesText_5',
+  //       'FailureCause_5',
+  //       'FailureCauseText_5',
+  //       'DrugErrorLocation',
+  //       'DrugCode1',
+  //       'DrugDesc1',
+  //       'IsHighAlert1',
+  //       'DrugCode2',
+  //       'DrugDesc2',
+  //       'IsHighAlert2',
+  //       'PharmaRevisedBy',
+  //       'PharmaRevisedBy1',
+  //       'PharmaRevisedRemark'
+  //     ]
+
+  //     // Map data according to Story 4
+  //     const mappedData = uploadedData.map(row => {
+  //       const mappedRow: Record<string, unknown> = {}
+        
+  //       // Department: {deptid:department}
+  //       mappedRow['Department'] = `${selectedDepartmentInfo.deptid}:${selectedDepartmentInfo.department}`
+        
+  //       // Direct mappings
+  //       mappedRow['OccDate'] = row['OccDate'] || ''
+  //       mappedRow['OccTime'] = row['OccTime'] || ''
+  //       mappedRow['LocationTxt'] = row['LocationTxt'] || ''
+  //       mappedRow['OccDesc'] = row['OccDesc'] || ''
+  //       mappedRow['IPSG'] = row['IPSG'] || ''
+  //       mappedRow['DrugSeverity'] = row['DrugSeverity'] || ''
+  //       mappedRow['HN'] = row['HN'] || ''
+  //       mappedRow['PatientName'] = row['PatientName'] || ''
+  //       mappedRow['VisitDate'] = row['VisitDate'] || ''
+  //       mappedRow['Physician'] = row['Physician'] || ''
+  //       mappedRow['PhysicianNo'] = row['PhysicianNo'] || ''
+  //       mappedRow['SubCategories_1'] = row['SubCategories_1'] || ''
+        
+  //       // SubCategoriesText_1 is empty (according to Story 4.1)
+  //       mappedRow['SubCategoriesText_1'] = ''
+        
+  //       // FailureCause_1 maps to FailureCause_1 (according to Story 4.1)
+  //       mappedRow['FailureCause_1'] = row['FailureCause_1'] || ''
+  //       mappedRow['FailureCauseText_1'] = ''
+  //       mappedRow['SubCategories_2'] = ''
+  //       mappedRow['SubCategoriesText_2'] = ''
+  //       mappedRow['FailureCause_2'] = ''
+  //       mappedRow['FailureCauseText_2'] = ''
+  //       mappedRow['SubCategories_3'] = ''
+  //       mappedRow['SubCategoriesText_3'] = ''
+  //       mappedRow['FailureCause_3'] = ''
+  //       mappedRow['FailureCauseText_3'] = ''
+  //       mappedRow['SubCategories_4'] = ''
+  //       mappedRow['SubCategoriesText_4'] = ''
+  //       mappedRow['FailureCause_4'] = ''
+  //       mappedRow['FailureCauseText_4'] = ''
+  //       mappedRow['SubCategories_5'] = ''
+  //       mappedRow['SubCategoriesText_5'] = ''
+  //       mappedRow['FailureCause_5'] = ''
+  //       mappedRow['FailureCauseText_5'] = ''
+        
+  //       mappedRow['DrugErrorLocation'] = row['DrugErrorLocation'] || ''
+  //       mappedRow['DrugCode1'] = row['DrugCode1'] || ''
+  //       mappedRow['DrugDesc1'] = row['DrugDesc1'] || ''
+  //       mappedRow['IsHighAlert1'] = row['IsHighAlert1'] || ''
+  //       mappedRow['DrugCode2'] = row['DrugCode2'] || ''
+  //       mappedRow['DrugDesc2'] = row['DrugDesc2'] || ''
+  //       mappedRow['IsHighAlert2'] = row['IsHighAlert2'] || ''
+        
+  //       // PharmaRevisedBy: manager from selected department
+  //       mappedRow['PharmaRevisedBy'] = selectedDepartmentInfo.manager
+        
+  //       // PharmaRevisedBy1: original PharmaRevisedBy
+  //       mappedRow['PharmaRevisedBy1'] = row['PharmaRevisedBy'] || ''
+        
+  //       mappedRow['PharmaRevisedRemark'] = row['PharmaRevisedRemark'] || ''
+        
+  //       return mappedRow
+  //     })
+
+  //     // Create worksheet
+  //     const ws = XLSX.utils.json_to_sheet(mappedData, { header: downloadHeaders })
+  //     // const ws = XLSX.utils.aoa_to_sheet(mappedData, { header: downloadHeaders })
+      
+  //     // Create workbook
+  //     const wb = XLSX.utils.book_new()
+  //     XLSX.utils.book_append_sheet(wb, ws, 'Data')
+      
+  //     // Generate filename with timestamp
+  //     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5)
+  //     // const filename = `MedError_${selectedDepartmentInfo.deptid}_${timestamp}.xlsx`
+  //     const filename = `MedError_${selectedDepartmentInfo.deptid}.xlsx`
+      
+  //     // Download file
+  //     XLSX.writeFile(wb, filename)
+  //   } catch (error) {
+  //     console.error('Error creating Excel file:', error)
+  //   }
+  // }
+
+    const handleDownloadExcel = async () => {
     if (!selectedDepartmentInfo || uploadedData.length === 0) return
 
     try {
-      // Import xlsx dynamically
       const XLSX = await import('xlsx')
 
-      // Define download headers mapping according to Story 4
       const downloadHeaders = [
-        'Department',
-        'OccDate',
-        'OccTime',
-        'LocationTxt',
-        'OccDesc',
-        'IPSG',
-        'DrugSeverity',
-        'HN',
-        'PatientName',
-        'VisitDate',
-        'Physician',
-        'PhysicianNo',
-        'SubCategories_1',
-        'SubCategoriesText_1',
-        'FailureCause_1',
-        'FailureCauseText_1',
-        'SubCategories_2',
-        'SubCategoriesText_2',
-        'FailureCause_2',
-        'FailureCauseText_2',
-        'SubCategories_3',
-        'SubCategoriesText_3',
-        'FailureCause_3',
-        'FailureCauseText_3',
-        'SubCategories_4',
-        'SubCategoriesText_4',
-        'FailureCause_4',
-        'FailureCauseText_4',
-        'SubCategories_5',
-        'SubCategoriesText_5',
-        'FailureCause_5',
-        'FailureCauseText_5',
-        'DrugErrorLocation',
-        'DrugCode1',
-        'DrugDesc1',
-        'IsHighAlert1',
-        'DrugCode2',
-        'DrugDesc2',
-        'IsHighAlert2',
-        'PharmaRevisedBy',
-        'PharmaRevisedBy1',
-        'PharmaRevisedRemark'
+        'Department', 'OccDate', 'OccTime', 'LocationTxt', 'OccDesc', 'IPSG',
+        'DrugSeverity', 'HN', 'PatientName', 'VisitDate', 'Physician',
+        'PhysicianNo', 'SubCategories_1', 'SubCategoriesText_1', 'FailureCause_1',
+        'FailureCauseText_1', 'SubCategories_2', 'SubCategoriesText_2',
+        'FailureCause_2', 'FailureCauseText_2', 'SubCategories_3',
+        'SubCategoriesText_3', 'FailureCause_3', 'FailureCauseText_3',
+        'SubCategories_4', 'SubCategoriesText_4', 'FailureCause_4',
+        'FailureCauseText_4', 'SubCategories_5', 'SubCategoriesText_5',
+        'FailureCause_5', 'FailureCauseText_5', 'DrugErrorLocation',
+        'DrugCode1', 'DrugDesc1', 'IsHighAlert1', 'DrugCode2', 'DrugDesc2',
+        'IsHighAlert2', 'PharmaRevisedBy', 'PharmaRevisedBy1', 'PharmaRevisedRemark'
       ]
 
-      // Map data according to Story 4
-      const mappedData = uploadedData.map(row => {
-        const mappedRow: Record<string, unknown> = {}
-        
-        // Department: {deptid:department}
-        mappedRow['Department'] = `${selectedDepartmentInfo.deptid}:${selectedDepartmentInfo.department}`
-        
-        // Direct mappings
-        mappedRow['OccDate'] = row['OccDate'] || ''
-        mappedRow['OccTime'] = row['OccTime'] || ''
-        mappedRow['LocationTxt'] = row['LocationTxt'] || ''
-        mappedRow['OccDesc'] = row['OccDesc'] || ''
-        mappedRow['IPSG'] = row['IPSG'] || ''
-        mappedRow['DrugSeverity'] = row['DrugSeverity'] || ''
-        mappedRow['HN'] = row['HN'] || ''
-        mappedRow['PatientName'] = row['PatientName'] || ''
-        mappedRow['VisitDate'] = row['VisitDate'] || ''
-        mappedRow['Physician'] = row['Physician'] || ''
-        mappedRow['PhysicianNo'] = row['PhysicianNo'] || ''
-        mappedRow['SubCategories_1'] = row['SubCategories_1'] || ''
-        
-        // SubCategoriesText_1 is empty (according to Story 4.1)
-        mappedRow['SubCategoriesText_1'] = ''
-        
-        // FailureCause_1 maps to FailureCause_1 (according to Story 4.1)
-        mappedRow['FailureCause_1'] = row['FailureCause_1'] || ''
-        mappedRow['FailureCauseText_1'] = ''
-        mappedRow['SubCategories_2'] = ''
-        mappedRow['SubCategoriesText_2'] = ''
-        mappedRow['FailureCause_2'] = ''
-        mappedRow['FailureCauseText_2'] = ''
-        mappedRow['SubCategories_3'] = ''
-        mappedRow['SubCategoriesText_3'] = ''
-        mappedRow['FailureCause_3'] = ''
-        mappedRow['FailureCauseText_3'] = ''
-        mappedRow['SubCategories_4'] = ''
-        mappedRow['SubCategoriesText_4'] = ''
-        mappedRow['FailureCause_4'] = ''
-        mappedRow['FailureCauseText_4'] = ''
-        mappedRow['SubCategories_5'] = ''
-        mappedRow['SubCategoriesText_5'] = ''
-        mappedRow['FailureCause_5'] = ''
-        mappedRow['FailureCauseText_5'] = ''
-        
-        mappedRow['DrugErrorLocation'] = row['DrugErrorLocation'] || ''
-        mappedRow['DrugCode1'] = row['DrugCode1'] || ''
-        mappedRow['DrugDesc1'] = row['DrugDesc1'] || ''
-        mappedRow['IsHighAlert1'] = row['IsHighAlert1'] || ''
-        mappedRow['DrugCode2'] = row['DrugCode2'] || ''
-        mappedRow['DrugDesc2'] = row['DrugDesc2'] || ''
-        mappedRow['IsHighAlert2'] = row['IsHighAlert2'] || ''
-        
-        // PharmaRevisedBy: manager from selected department
-        mappedRow['PharmaRevisedBy'] = selectedDepartmentInfo.manager
-        
-        // PharmaRevisedBy1: original PharmaRevisedBy
-        mappedRow['PharmaRevisedBy1'] = row['PharmaRevisedBy'] || ''
-        
-        mappedRow['PharmaRevisedRemark'] = row['PharmaRevisedRemark'] || ''
-        
-        return mappedRow
+      const aoaData: any[][] = [downloadHeaders]
+
+      uploadedData.forEach(row => {
+        const rowArray = downloadHeaders.map(header => {
+          if (header === 'Department') return `${selectedDepartmentInfo.deptid}:${selectedDepartmentInfo.department}`
+          if (header === 'PharmaRevisedBy') return selectedDepartmentInfo.manager
+          if (header === 'PharmaRevisedBy1') return row['PharmaRevisedBy'] || ''
+          
+          if (header.includes('Text_') || 
+            (header.startsWith('SubCategories_') && header !== 'SubCategories_1') || 
+            (header.startsWith('FailureCause_') && header !== 'FailureCause_1')) {
+            return ''
+          }
+
+          const val = row[header]
+          return val === null || val === undefined ? '' : val
+        })
+        aoaData.push(rowArray)
       })
 
-      // Create worksheet
-      const ws = XLSX.utils.json_to_sheet(mappedData, { header: downloadHeaders })
-      
-      // Create workbook
+      const ws = XLSX.utils.aoa_to_sheet(aoaData)
       const wb = XLSX.utils.book_new()
       XLSX.utils.book_append_sheet(wb, ws, 'Data')
       
-      // Generate filename with timestamp
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5)
-      const filename = `MedError_${selectedDepartmentInfo.deptid}_${timestamp}.xlsx`
-      
-      // Download file
-      XLSX.writeFile(wb, filename)
+      const defaultFilename = `MedError_${selectedDepartmentInfo.deptid}.xlsx`
+
+      // ตรวจสอบว่าเบราว์เซอร์รองรับ showSaveFilePicker หรือไม่
+      if ('showSaveFilePicker' in window) {
+        try {
+          // เปิดหน้าต่าง Save As
+          const handle = await (window as any).showSaveFilePicker({
+            suggestedName: defaultFilename,
+            types: [{
+              description: 'Excel file',
+              accept: { 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'] }
+            }],
+          });
+
+          // สร้างข้อมูล Excel ในรูปแบบ ArrayBuffer
+          const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array', bookSST: true });
+          const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+          // เขียนข้อมูลลงไฟล์ที่ผู้ใช้เลือก
+          const writable = await handle.createWritable();
+          await writable.write(blob);
+          await writable.close();
+          
+          console.log('File saved successfully');
+        } catch (err: any) {
+          // ถ้าผู้ใช้กด Cancel ไม่ต้องทำอะไร
+          if (err.name !== 'AbortError') {
+            console.error('Error saving file:', err);
+            // ถ้าเกิด Error อื่นๆ ให้ใช้การ Download ปกติเป็น Fallback
+            XLSX.writeFile(wb, defaultFilename, { bookSST: true });
+          }
+        }
+      } else {
+        // Fallback สำหรับเบราว์เซอร์ที่ไม่รองรับ (เช่น Safari, Firefox)
+        XLSX.writeFile(wb, defaultFilename, { bookSST: true });
+      }
     } catch (error) {
       console.error('Error creating Excel file:', error)
     }
