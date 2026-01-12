@@ -456,7 +456,7 @@ export default function UploadPage() {
       
       // Create workbook
       const wb = XLSX.utils.book_new()
-      XLSX.utils.book_append_sheet(wb, ws, 'MedError')
+      XLSX.utils.book_append_sheet(wb, ws, 'Data')
       
       // Generate filename with timestamp
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5)
